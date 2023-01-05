@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="http://code.jquery.com/jquery-1.4.1.min.js"></script>
+    <script src="../api/api.js"></script>
+    <title>API 列表</title>
+    <style>
+        #apiTable {
+            width: 80%;
+            margin: 10px auto;
+        }
+
+        table,
+        table tr th,
+        table tr td {
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+        th{
+            font-weight: bold;
+            color: #ddaa12;
+            background: #123456;
+        }
+        .fat{
+            font-size: bold;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        table {
+            /* min-height: 25px;
+            line-height: 25px; */
+            /* text-align: center; */
+            border-collapse: collapse;
+            padding: 2px;
+        }
+    </style>
+</head>
+
+<body>
+    <table id="apiTable" border="1" cellspacing="0">
+        <title>api 列表</title>
+        <tr>
+            <th>api Name </th>
+            <th>api 描述 </th>
+            <th>api 入参(params) </th>
+            <th>api 返回值(response) </th>
+        </tr>
+        <pre>
+            <code id="apiContent"></code>
+        </pre>
+    </table>
+</body>
+<script>
+    $(document).ready(function(){
+        apis.forEach((item) => {
+            let tr = `<tr class='CaseRow'>
+                <td>${item.name}</td>
+                <td>${item.desc}</td>
+                <td><pre class='fat'>${JSON.stringify(item.params, null, 2)}</pre></td>
+                <td><pre class='fat'>${JSON.stringify(item.response, null, 2)}</pre></td>
+                </tr>`
+            $("#apiTable").append(tr)
+        })
+    })
+</script>
+
+</html>

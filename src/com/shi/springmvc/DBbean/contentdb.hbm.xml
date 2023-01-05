@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+ "-//Hibernate/Hibernate Mapping DTD//EN"
+ "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"> 
+
+<hibernate-mapping>
+	<!-- 1 配置类和表对应   
+        class标签  
+        name属性：实体类全路径  
+        table属性：数据库表名称  
+    -->
+   <class name="com.shi.springmvc.DBbean.contentdb" table="contentDB">
+	<!-- 2 配置“主键”的映射
+            id标签
+            name属性：实体类里面id属性名称
+            column属性：生成的表字段名称
+            type属性：该字段的数据类型
+        -->
+      <id name="contentid" type="int" column="contentid">
+      	<!-- 设置主键的增长方法
+                increment（递增）
+                identity (标识)
+                sequence （序列）
+                hilo （高低位）
+                seqhilo（使用序列的高低位）
+                native（本地）
+                assigned（设置）
+            -->
+         <generator class="identity"/>
+      </id>
+      <!-- 配置其他属性和表字段对应
+            name属性：实体类属性名称
+            column属性：生成表字段名称
+            type属性：该字段的数据类型
+        -->
+      <property name="contentMain" column="contentMain" type="string"/>
+      <property name="contentTitle" column="contentTitle" type="string"/>
+      <property name="contentTagsid" column="contentTagsid" type="string"/>
+      <property name="contentTagsContent" column="contentTagsContent" type="string"/>
+      <property name="contentUserId" column="contentUserId" type="string"/>
+      <property name="contentMakeDate" column="contentMakeDate" type="java.util.Date"/>
+   </class>
+</hibernate-mapping>
