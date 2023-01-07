@@ -55,6 +55,12 @@
    
    <mapping class="com.shi.springmvc.DBbean.contentdb"/>
    <mapping resource="com/shi/springmvc/DBbean/contentdb.hbm.xml"/>
+   
+   <mapping class="com.shi.springmvc.DBbean.owuser"/>
+   <mapping resource="com/shi/springmvc/DBbean/owuser.hbm.xml"/>
+   
+   <mapping class="com.shi.springmvc.DBbean.owuserPROD"/>
+   <mapping resource="com/shi/springmvc/DBbean/owuserPROD.hbm.xml"/>
 
 </session-factory>
 </hibernate-configuration>

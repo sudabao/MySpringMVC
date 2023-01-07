@@ -1,4 +1,5 @@
 package com.shi.springmvc.handlers;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -11,9 +12,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.shi.springmvc.DBbean.contentdb;
+import com.shi.springmvc.DBbean.owuser;
+import com.shi.springmvc.DBbean.owuserPROD;
+import com.shi.springmvc.bean.IResponse;
+import com.shi.springmvc.bean.OwUserList;
+import com.shi.springmvc.bean.OwUserListPROD;
 import com.shi.springmvc.bean.Response;
 import com.shi.springmvc.bean.contentList;
 import com.shi.springmvc.bean.userInfo;
+import com.shi.springmvc.domain.owfuneral;
 import com.shi.springmvc.domain.tuiwen;
 
 import net.sf.json.JSONObject;
@@ -166,6 +173,54 @@ public class HelloWorld {
     	logger.info("response json:"+json);
         return json.toString();
     }
+    
+    @RequestMapping(value="/home",produces="text/html;charset=UTF-8") 
+    @ResponseBody
+    public String home(HttpServletRequest request) {
+    	String isTest = request.getParameter("isTest");
+    	owfuneral ow = new owfuneral();
+    	
+    	if(isTest.equalsIgnoreCase("prod")){
+    		List<owuserPROD> owuserPRODList = ow.homePROD(isTest);
+    		OwUserListPROD OLPROD = new OwUserListPROD();
+    		OLPROD.setOwuserList(owuserPRODList);
+        	JSONObject json = JSONObject.fromObject(OLPROD);
+        	return json.toString();
+    	}else{
+    		List<owuser> owuserList = ow.home(isTest);
+    		OwUserList oL = new OwUserList();
+        	oL.setOwuserList(owuserList);
+        	JSONObject json = JSONObject.fromObject(oL);
+        	return json.toString();
+    	}	   
+    }
+    
+    @RequestMapping(value="/byebye",produces="text/html;charset=UTF-8") 
+    @ResponseBody
+    public String byebye(HttpServletRequest request) throws UnsupportedEncodingException {
+    	String idName = request.getParameter("idName");
+    	String mainHero = request.getParameter("mainHero");
+    	String finalWord = request.getParameter("finalWord");
+    	String time = request.getParameter("time");
+    	String isTest = request.getParameter("isTest");
+
+    	idName = idName == null?"":new String(idName.getBytes("8859_1"), "utf8");
+    	mainHero = mainHero == null?"":new String(mainHero.getBytes("8859_1"), "utf8");
+    	finalWord = finalWord == null?"":new String(finalWord.getBytes("8859_1"), "utf8");
+    	time = time == null?"":new String(time.getBytes("8859_1"), "utf8");
+    	
+    	owfuneral ow = new owfuneral();
+    	IResponse IR = new IResponse();
+    	if(ow.byebye(idName, mainHero, finalWord, time, isTest)){
+    		IR.setSuccess(true); 
+    	}else{
+    		IR.setSuccess(false); 
+    	}
+    	JSONObject json = JSONObject.fromObject(IR);
+    	return json.toString();  
+    }
+    
+    
     
     public Response returnError(String input){
     	Response rs = new Response();

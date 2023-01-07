@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -13,6 +14,8 @@ import org.hibernate.service.ServiceRegistry;
 
 import com.shi.springmvc.DBbean.collectiondb;
 import com.shi.springmvc.DBbean.contentdb;
+import com.shi.springmvc.DBbean.owuser;
+import com.shi.springmvc.DBbean.owuserPROD;
 import com.shi.springmvc.DBbean.userdb;
 
 public class beanDao{
@@ -275,7 +278,69 @@ public class beanDao{
         }  
 	}
 	
+	public void createOWUserTEST(owuser owuser){
+		//开启session  
+		session = sessionFactory.openSession();  
+        //开启事务  
+        session.beginTransaction(); 
+        
+        session.save(owuser);
+        
+        //提交事务  
+        session.getTransaction().commit();
+        
+        if(session.isOpen()){  
+            //关闭session  
+            session.close();  
+        }  
+	}
 	
+	public void createOWUserPROD(owuserPROD owuserPROD){
+		//开启session  
+		session = sessionFactory.openSession();  
+        //开启事务  
+        session.beginTransaction(); 
+        
+        session.save(owuserPROD);
+        
+        //提交事务  
+        session.getTransaction().commit();
+        
+        if(session.isOpen()){  
+            //关闭session  
+            session.close();  
+        }  
+	}
+	
+	public List<owuser> selectowuserTEST(){
+		//开启session  
+		session = sessionFactory.openSession();  
+		//开启事务  
+		session.beginTransaction();
+		Query query = session.createQuery("from owuser");
+		query.setMaxResults(200);
+		List<owuser> owuserList = query.list();
+		if(session.isOpen()){  
+            //关闭session  
+            session.close();  
+        }  
+		return owuserList;
+	}
+	
+	public List<owuserPROD> selectowuserPROD(){
+		//开启session  
+		session = sessionFactory.openSession();  
+		//开启事务  
+		session.beginTransaction();
+		Query query = session.createQuery("from owuserPROD");
+		query.setMaxResults(200);
+		List<owuserPROD> owuserList = query.list();
+		if(session.isOpen()){  
+            //关闭session  
+            session.close();  
+        }  
+		return owuserList;
+	}
 	
 	public static void main(String args[]){
 		//collectiondb collection = new collectiondb();
